@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> 登录 | MyCloud</title>
+    <link type="text/css" rel="stylesheet" href="/static/css/semantic.min.css">
+    <script src="/static/js/jquery-3.1.1.min.js"></script>
+    <script src="/static/js/semantic.js"></script>
+
+    <script src="/static/js/jquery.validate.js"></script>
+    <script src="/static/js/additional-methods.js"></script>
+    <script>
+            $(document).ready(function () {
+                $('.ui.selection.dropdown').dropdown();
+            });
+    </script>
+    <style type="text/css">
+    body {
+      background-color: #DADADA;
+    }
+    body > .grid {
+      height: 100%;
+    }
+    .image {
+      margin-top: -100px;
+    }
+    .column {
+      max-width: 450px;
+    }
+  </style>
+</head>
+
+<body>
+{% if error %}
+    <div>
+        <label>{{ error }}</label>
+    </div>
+{% endif %}
+<div class="ui middle aligned center aligned grid">
+  <div class="column">
+    <h2 class="ui teal image header">
+      <img src="../static/image/logo.png" class="image">
+      <div class="content">
+        注册
+      </div>
+    </h2>
+    <form class="ui large form" id="signupform" action={% url 'signup' %}>
+      <div class="ui stacked segment">
+        <div class="field">
+          <div class="ui left icon input">
+            <i class="user icon"></i>
+            <input type="text" name="username" minlength=2 placeholder="用户名:">
+          </div>
+        </div>
+        <div class="field">
+          <div class="ui left icon input">
+            <i class="lock icon"></i>
+            <input type="password" name="password" placeholder="密码:">
+          </div>
+        </div>
+        <div class="field">
+          <div class="ui left icon input">
+            <i class="lock icon"></i>
+            <input type="password" name="confirmpassword" placeholder="确认密码:">
+          </div>
+        </div>
+        <div class="field">
+          <div class="ui left icon input">
+            <i class="meh icon"></i>
+            <input type="text" name="name" placeholder="别名:例 杨过" >
+          </div>
+        </div>
+          <div class="field">
+          <div class="ui left icon input">
+            <i class="call icon"></i>
+            <input type="text" name="phonenumber" placeholder="电话:">
+          </div>
+        </div>
+
+        <div class="field">
+          <div class="ui left icon input">
+            <i class="mail icon"></i>
+            <input type="text" name="email" placeholder="邮箱:">
+          </div>
+        </div>
+        <div class="field">
+            <div class="ui selection dropdown">
+              <input name="organizationname" type="hidden">
+              <i class="dropdown icon"></i>
+              <div class="default text">组织名称：</div>
+              <div class="menu">
+                <div class="item" data-value="None">无组织</div>
+                <div class="item" data-value="组织1">组织1</div>
+                <div class="item" data-value="组织2">组织2</div>
+              </div>
+            </div>
+        </div>
+        <div class="ui fluid large teal submit button">注册</div>
+      </div>
+    </form>
+  </div>
+</div>
+<script>
+
+    $().ready(function () {
+        $("#signupform").validate({
+            rules:{
+              username: {
+                required: true,
+                minlength: 2
+              },
+              password: {
+                required: true,
+                minlength: 5
+              },
+              confirmpassword: {
+                required: true,
+                minlength: 5,
+                equalTo: "#password"
+              },
+              email: {
+                  required: true,
+                  email: true
+              },
+              phonenumber:{
+                  required: true,
+                  isPhone:true
+              },
+              name: {
+                required: true,
+                minlength: 2
+              }
+            },
+            messages:{
+              username: {
+                required: "请输入用户名",
+                minlength:"请输入2个字符以上"
+              },
+              password: {
+                required: "密码不能为空",
+                minlength: "密码长度不够"
+              },
+              confirmpassword: {
+                required: "请确认密码",
+                minlength: "密码长度不够",
+                equalTo: "两次密码不匹配"
+              },
+              email: {
+                  required: "请输入邮箱",
+                  email: "邮箱格式不对"
+              },
+              phonenumber:{
+                  required: "请输入电话号码"
+              },
+              name: {
+                required: "别名不能为空",
+                minlength: "别名必须超过两个字符"
+              },
+
+            }
+
+        });
+
+    });
+
+
+
+</script>
+</body>
+
+</html>
